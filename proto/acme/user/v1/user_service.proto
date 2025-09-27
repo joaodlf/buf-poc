@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package acme.user.v1;
+
+option go_package = "github.com/yourorg/my-grpc-service/gen/go/acme/user/v1";
+option java_package = "com.yourorg.acme.user.v1";
+option java_multiple_files = true;
+option java_outer_classname = "UserServiceProto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+// User message definition
+message User {
+  string id = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+  UserStatus status = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+// User status enumeration
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_ACTIVE = 1;
+  USER_STATUS_INACTIVE = 2;
+  USER_STATUS_SUSPENDED = 3;
+}
+
+// Request messages
+message CreateUserRequest {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+  optional string email = 2;
+  optional string first_name = 3;
+  optional string last_name = 4;
+  optional UserStatus status = 5;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message ListUsersRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+}
+
+// UserService provides CRUD operations for users
+service UserService {
+  // Create a new user
+  rpc CreateUser(CreateUserRequest) returns (User);
+  
+  // Get a user by ID
+  rpc GetUser(GetUserRequest) returns (User);
+  
+  // Update an existing user
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+  
+  // Delete a user
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  
+  // List users with pagination
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+}

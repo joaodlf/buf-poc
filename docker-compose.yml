@@ -1,0 +1,5 @@
+services:
+  buf-generate:
+    build: .
+    volumes:
+      - .:/workspace
