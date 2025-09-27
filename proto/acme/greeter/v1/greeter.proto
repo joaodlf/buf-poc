@@ -3,9 +3,9 @@ syntax = "proto3";
 package acme.greeter.v1;
 
 option go_package = "github.com/yourorg/my-grpc-service/gen/go/acme/greeter/v1";
-option java_package = "com.yourorg.acme.greeter.v1";
 option java_multiple_files = true;
 option java_outer_classname = "GreeterServiceProto";
+option java_package = "com.yourorg.acme.greeter.v1";
 
 service GreeterService {
   rpc SayHello(SayHelloRequest) returns (SayHelloResponse);
