@@ -1,13 +1,14 @@
 syntax = "proto3";
 
-package acme.user.v1;
+package api.v1;
 
-option go_package = "github.com/yourorg/my-grpc-service/gen/go/acme/user/v1";
-option java_package = "com.yourorg.acme.user.v1";
+option go_package = "github.com/yourorg/my-grpc-service/gen/go/api/v1";
+option java_package = "com.yourorg.api.v1";
 option java_multiple_files = true;
 option java_outer_classname = "UserServiceProto";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 // User message definition
 message User {
@@ -62,37 +63,20 @@ message ListUsersResponse {
   int32 total_count = 3;
 }
 
-// Response messages
-message CreateUserResponse {
-  User user = 1;
-}
-
-message GetUserResponse {
-  User user = 1;
-}
-
-message UpdateUserResponse {
-  User user = 1;
-}
-
-message DeleteUserResponse {
-  // Empty response
-}
-
 // UserService provides CRUD operations for users
 service UserService {
   // Create a new user
-  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
-
+  rpc CreateUser(CreateUserRequest) returns (User);
+  
   // Get a user by ID
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
-
+  rpc GetUser(GetUserRequest) returns (User);
+  
   // Update an existing user
-  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
-
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+  
   // Delete a user
-  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  
   // List users with pagination
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
