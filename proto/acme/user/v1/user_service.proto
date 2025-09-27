@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package acme.user.v1;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/yourorg/my-grpc-service/gen/go/acme/user/v1";
-option java_package = "com.yourorg.acme.user.v1";
 option java_multiple_files = true;
 option java_outer_classname = "UserServiceProto";
-
-import "google/protobuf/timestamp.proto";
+option java_package = "com.yourorg.acme.user.v1";
 
 // User message definition
 message User {
